@@ -1,15 +1,14 @@
 package com.upgrad.hirewheels.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(length = 10)
     private int userId;
 
     @Column(length = 50, nullable = false)
@@ -28,7 +27,7 @@ public class User {
     @Column(length = 10, nullable = false, unique = true)
     private String mobileNo;
 
-    // FOREIGN KEY
+    // TODO: FOREIGN KEY
     @Column(length = 10, nullable = false)
     private int roleId;
 
