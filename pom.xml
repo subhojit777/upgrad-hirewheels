@@ -15,6 +15,7 @@
 	<description>Mini Project HireWheels Application</description>
 	<properties>
 		<java.version>11</java.version>
+		<exec.mainClass>com.upgrad.hirewheels.HireWheelsApplication</exec.mainClass>
 	</properties>
 	<dependencies>
 		<dependency>
