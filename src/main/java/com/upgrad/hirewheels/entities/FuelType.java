@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class FuelType {
@@ -12,11 +13,15 @@ public class FuelType {
     @Column(nullable = false, unique = true, length = 50)
     private String fuelType;
 
+    @OneToMany(mappedBy = "fuelType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
     @Override
     public String toString() {
         return "FuelType{" +
                 "fuelTypeId=" + fuelTypeId +
                 ", fuelType='" + fuelType + '\'' +
+                ", vehicles=" + vehicles +
                 '}';
     }
 

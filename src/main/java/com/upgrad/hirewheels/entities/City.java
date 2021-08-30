@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class City {
@@ -12,11 +13,15 @@ public class City {
     @Column(length = 50, nullable = false)
     private String cityName;
 
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Location> locations;
+
     @Override
     public String toString() {
         return "City{" +
                 "cityId=" + cityId +
                 ", cityName='" + cityName + '\'' +
+                ", locations=" + locations +
                 '}';
     }
 

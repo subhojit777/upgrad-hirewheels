@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Vehicle {
@@ -15,20 +16,20 @@ public class Vehicle {
     @Column(nullable = false, length = 10)
     private String vehicleNumber;
 
-    // TODO: FOREIGN KEY
-    @Column(length = 10)
-    private int vehicleSubcategoryId;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_subcategory_id")
+    private VehicleSubcategory vehicleSubcategory;
 
     @Column(length = 50, nullable = false)
     private String color;
 
-    // TODO FOREIGN KEY
-    @Column(nullable = false, length = 10)
-    private int locationId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "location_id")
+    private Location location;
 
-    // TODO FOREIGN KEY
-    @Column(length = 10, nullable = false)
-    private int fuelTypeId;
+    @ManyToOne
+    @JoinColumn(name = "fuel_type_id", nullable = false)
+    private FuelType fuelType;
 
     @Column(length = 1, nullable = false)
     private byte availabilityStatus;
@@ -36,18 +37,22 @@ public class Vehicle {
     @Column(nullable = false, length = 500)
     private String vehicleImageUrl;
 
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
+
     @Override
     public String toString() {
         return "Vehicle{" +
                 "vehicleId=" + vehicleId +
                 ", vehicleModel='" + vehicleModel + '\'' +
                 ", vehicleNumber='" + vehicleNumber + '\'' +
-                ", vehicleSubcategoryId=" + vehicleSubcategoryId +
+                ", vehicleSubcategory=" + vehicleSubcategory +
                 ", color='" + color + '\'' +
-                ", locationId=" + locationId +
-                ", fuelTypeId=" + fuelTypeId +
+                ", location=" + location +
+                ", fuelType=" + fuelType +
                 ", availabilityStatus=" + availabilityStatus +
                 ", vehicleImageUrl='" + vehicleImageUrl + '\'' +
+                ", bookings=" + bookings +
                 '}';
     }
 
@@ -75,12 +80,12 @@ public class Vehicle {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public int getVehicleSubcategoryId() {
-        return vehicleSubcategoryId;
+    public VehicleSubcategory getVehicleSubcategory() {
+        return vehicleSubcategory;
     }
 
-    public void setVehicleSubcategoryId(int vehicleSubcategoryId) {
-        this.vehicleSubcategoryId = vehicleSubcategoryId;
+    public void setVehicleSubcategory(VehicleSubcategory vehicleSubcategory) {
+        this.vehicleSubcategory = vehicleSubcategory;
     }
 
     public String getColor() {
@@ -91,20 +96,20 @@ public class Vehicle {
         this.color = color;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public int getFuelTypeId() {
-        return fuelTypeId;
+    public FuelType getFuelType() {
+        return fuelType;
     }
 
-    public void setFuelTypeId(int fuelTypeId) {
-        this.fuelTypeId = fuelTypeId;
+    public void setFuelType(FuelType fuelType) {
+        this.fuelType = fuelType;
     }
 
     public byte getAvailabilityStatus() {

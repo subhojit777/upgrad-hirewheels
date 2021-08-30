@@ -22,17 +22,17 @@ public class Booking {
     @Column(nullable = false, precision = 2, scale = 10)
     private float amount;
 
-    // TODO foreign key
-    @Column(length = 10, nullable = false)
-    private int locationId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "location_id")
+    private Location location;
 
-    // TODO FOREIGN KEY
-    @Column(length = 10, nullable = false)
-    private int vehicleId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "vehicle_id")
+    private Vehicle vehicle;
 
-    // TODO FOREIGN KEY
-    @Column(length = 10, nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
+    private User user;
 
     @Override
     public String toString() {
@@ -42,9 +42,9 @@ public class Booking {
                 ", dropoffDate=" + dropoffDate +
                 ", bookingDate=" + bookingDate +
                 ", amount=" + amount +
-                ", locationId=" + locationId +
-                ", vehicleId=" + vehicleId +
-                ", userId=" + userId +
+                ", locationId=" + location +
+                ", vehicleId=" + vehicle +
+                ", userId=" + user +
                 '}';
     }
 
@@ -88,27 +88,27 @@ public class Booking {
         this.amount = amount;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public int getVehicleId() {
-        return vehicleId;
+    public Vehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(int vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

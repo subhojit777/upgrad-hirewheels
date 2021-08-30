@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class VehicleCategory {
@@ -12,11 +13,15 @@ public class VehicleCategory {
     @Column(nullable = false, unique = true, length = 50)
     private String vehicleCategoryName;
 
+    @OneToMany(mappedBy = "vehicleCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<VehicleSubcategory> vehicleSubcategories;
+
     @Override
     public String toString() {
         return "VehicleCategory{" +
                 "vehicleCategoryId=" + vehicleCategoryId +
                 ", vehicleCategoryName='" + vehicleCategoryName + '\'' +
+                ", vehicleSubcategories=" + vehicleSubcategories +
                 '}';
     }
 

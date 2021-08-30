@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class VehicleSubcategory {
@@ -15,8 +16,12 @@ public class VehicleSubcategory {
     @Column(scale = 10, precision = 2, nullable = false)
     private float pricePerDay;
 
-    @Column(length = 10, nullable = false)
-    private int vehicleCategoryId;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_category_id", nullable = false)
+    private VehicleCategory vehicleCategory;
+
+    @OneToMany(mappedBy = "vehicleSubcategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
 
     @Override
     public String toString() {
@@ -24,7 +29,8 @@ public class VehicleSubcategory {
                 "vehicleSubcategoryId=" + vehicleSubcategoryId +
                 ", vehicleSubcategoryName='" + vehicleSubcategoryName + '\'' +
                 ", pricePerDay=" + pricePerDay +
-                ", vehicleCategoryId=" + vehicleCategoryId +
+                ", vehicleCategoryId=" + vehicleCategory +
+                ", vehicles=" + vehicles +
                 '}';
     }
 
@@ -52,11 +58,11 @@ public class VehicleSubcategory {
         this.pricePerDay = pricePerDay;
     }
 
-    public int getVehicleCategoryId() {
-        return vehicleCategoryId;
+    public VehicleCategory getVehicleCategory() {
+        return vehicleCategory;
     }
 
-    public void setVehicleCategoryId(int vehicleCategoryId) {
-        this.vehicleCategoryId = vehicleCategoryId;
+    public void setVehicleCategory(VehicleCategory vehicleCategoryId) {
+        this.vehicleCategory = vehicleCategoryId;
     }
 }

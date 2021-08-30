@@ -1,6 +1,7 @@
 package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Location {
@@ -15,11 +16,18 @@ public class Location {
     @Column(length = 100, nullable = false)
     private String address;
 
-    @Column(nullable = false, length = 10)
-    private int cityId;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "city_id")
+    private City city;
 
     @Column(length = 6, nullable = false)
     private String pincode;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    private Set<Vehicle> vehicles;
 
     @Override
     public String toString() {
@@ -27,8 +35,10 @@ public class Location {
                 "locationId=" + locationId +
                 ", locationName='" + locationName + '\'' +
                 ", address='" + address + '\'' +
-                ", cityId=" + cityId +
+                ", cityId=" + city +
                 ", pincode='" + pincode + '\'' +
+                ", bookings=" + bookings +
+                ", vehicles=" + vehicles +
                 '}';
     }
 
@@ -56,12 +66,12 @@ public class Location {
         this.address = address;
     }
 
-    public int getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getPincode() {

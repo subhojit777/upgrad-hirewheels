@@ -2,6 +2,7 @@ package com.upgrad.hirewheels.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,12 +28,15 @@ public class User {
     @Column(length = 10, nullable = false, unique = true)
     private String mobileNo;
 
-    // TODO: FOREIGN KEY
-    @Column(length = 10, nullable = false)
-    private int roleId;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
     @Column(precision = 2, scale = 10)
     private float walletMoney = 10000.00f;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
 
     @Override
     public String toString() {
@@ -43,8 +47,9 @@ public class User {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", mobileNo='" + mobileNo + '\'' +
-                ", roleId=" + roleId +
+                ", role=" + role +
                 ", walletMoney=" + walletMoney +
+                ", bookings=" + bookings +
                 '}';
     }
 
@@ -96,12 +101,12 @@ public class User {
         this.mobileNo = mobileNo;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public float getWalletMoney() {
