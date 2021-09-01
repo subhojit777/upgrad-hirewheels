@@ -1,23 +1,35 @@
 package com.upgrad.hirewheels.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class VehicleSubcategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 10)
+    @NonNull
     private int vehicleSubcategoryId;
 
     @Column(unique = true, nullable = false, length = 50)
+    @NonNull
     private String vehicleSubcategoryName;
 
     @Column(scale = 10, precision = 2, nullable = false)
+    @NonNull
     private float pricePerDay;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_category_id", nullable = false)
+    @NonNull
     private VehicleCategory vehicleCategory;
 
     @OneToMany(mappedBy = "vehicleSubcategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

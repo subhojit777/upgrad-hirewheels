@@ -1,26 +1,39 @@
 package com.upgrad.hirewheels.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Location {
     @Id
     @Column(length = 10)
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
     private int locationId;
 
     @Column(length = 50, nullable = false)
+    @NonNull
     private String locationName;
 
     @Column(length = 100, nullable = false)
+    @NonNull
     private String address;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "city_id")
+    @NonNull
     private City city;
 
     @Column(length = 6, nullable = false)
+    @NonNull
     private String pincode;
 
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

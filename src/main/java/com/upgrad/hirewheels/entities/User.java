@@ -1,38 +1,54 @@
 package com.upgrad.hirewheels.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
+@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(length = 10)
+    @NonNull
     private int userId;
 
     @Column(length = 50, nullable = false)
+    @NonNull
     private String firstName;
 
     @Column(length = 50)
+    @NonNull
     private String lastName;
 
     @Column(length = 50, nullable = false)
     @Size(min = 5, max = 50)
+    @NonNull
     private String password;
 
     @Column(length = 50, unique = true, nullable = false)
+    @NonNull
     private String email;
 
     @Column(length = 10, nullable = false, unique = true)
+    @NonNull
     private String mobileNo;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
+    @NonNull
     private Role role;
 
     @Column(precision = 2, scale = 10)
+    @NonNull
     private float walletMoney = 10000.00f;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
